@@ -61,9 +61,9 @@ model Friend{
   status FriendStatus
   dateToem DateTime @default(now())
   requesterId Int
-  requester User @relation("requester",fields: [requesterId],references: [id])
+  requester User @relation("requester",fields: [requesterId],references: [id])//requester เขียนเพราะ ref user มากกว่า1
   receiverId Int 
-  receiver User @relation("receiver",fields: [receiverId],references: [id])
+  receiver User @relation("receiver",fields: [receiverId],references: [id])//receiver เขียนเพราะ ref user มากกว่า1
 }
 
 enum FriendStatus{
