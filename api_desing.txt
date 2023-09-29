@@ -2,6 +2,6 @@
 POST /auth/register
 BODY firstName,lastName,email or mobile,password,confirmPassword
 RESPONSE
-201 => {String:accessToken} send accessToken for auto login (add to localStorage)
+201 => {String:accessToken,user:{id:Number,firstName,lastName,password}} send accessToken for auto login (add to localStorage)
 400 => {String:message}
 500 => {String:message}
