@@ -16,6 +16,9 @@ const Joi = require("joi");
 //         then:joi.string().default(joi.ref("emailOMobile"))
 //     })
 // });
+
+//joiObj().validate return {value,error}
+
 const registerSchema = Joi.object(
     {
         firstName: Joi.string().trim().required(),
@@ -40,4 +43,10 @@ const registerSchema = Joi.object(
     }
 );
 
+const loginSchema =Joi.object({
+    emailOrMobile : Joi.string().required(),
+    password:Joi.string().required()
+});
+
+exports.loginSchema = loginSchema;
 exports.registerSchema = registerSchema;
