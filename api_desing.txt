@@ -2,6 +2,23 @@
 POST /auth/register
 BODY firstName,lastName,email or mobile,password,confirmPassword
 RESPONSE
-201 => {String:accessToken,user:{id:Number,firstName,lastName,password}} send accessToken for auto login (add to localStorage)
+201 => {String:accessToken} send accessToken for auto login (add to localStorage)
 400 => {String:message}
 500 => {String:message}
+
+=LOGIN=
+RESPONSE
+POST /auth/login
+BODY email or mobile,password
+201 => {String:accessToken} send accessToken for auto login (add to localStorage)
+400 => {String:message}
+500 => {String:message}
+
+
+=GET AUTHENTICATED USER=
+GET /auth/me
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+RESPONSE
+200 {user:{id:Number,firstName:string}}
+401 {message:string}
+500 {message:string}
