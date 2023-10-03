@@ -22,3 +22,13 @@ RESPONSE
 200 {user:{id:Number,firstName:string}}
 401 {message:string}
 500 {message:string}
+
+UPDATE PROFILE/COVER IMG
+PATCH   /user
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+BODY profileImage?,coverImage?
+RESPONSE
+200 {message:string(success)}
+400 {message:string}
+401 {message:string}
+500 {message:string}
