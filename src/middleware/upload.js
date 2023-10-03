@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     filename:(req,file,callback)=>{
         console.log(file);
         const split = file.originalname.split(".");
-        callback(null,Date.now()+Math.random()*1000000+"."+split[split.length-1]);//(err,fileName)//ชื่อไฟล์เป็นวัน
+        callback(null,""+Date.now()+Math.random()*1000000+"."+split[split.length-1]);//(err,fileName)//ชื่อไฟล์เป็นวัน
 
     }
 });
