@@ -54,7 +54,7 @@ exports.login = async(req,res,next)=>{
         const payload = {userId:user.id};
         const accessToken = jwt.sign(payload,process.env.JWT_SECRET_KEY||"aqqewetlkgl",{expiresIn:process.env.JWT_EXPIRE} );
         delete user.password;
-        res.status(200).json({accessToken,user});
+        return res.status(200).json({accessToken,user});
 
     }catch(err){
         next(err);

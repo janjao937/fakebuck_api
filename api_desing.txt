@@ -28,7 +28,46 @@ PATCH   /user
 HEADER AUTHORIZATION Bearer ACCESS_TOKEN
 BODY profileImage?,coverImage?
 RESPONSE
-200 {message:string(success)}
+200 {profileImage:string?,coverImage:string?}
 400 {message:string}
 401 {message:string}
 500 {message:string}
+
+GET USER PROFILE
+GET /user/:userId
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+RESPONSE
+200 {user:{id,firstName,lastName,profileImage,coverImage}}
+401 {message:string(Invalid Token)} 
+501 {message:string(Server error)}
+
+
+# FRIEND
+
+REQUEST FRIEND
+POST /friend/:receiverId
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+RESPONSE
+200 {message:string}
+400 {message:string}
+401 {message:string}
+500 {message:string}
+
+DELETE FRIEND
+POST /friend/:targetUserId
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+RESPONSE
+200 {message:string}
+400 {message:string}
+401 {message:string}
+500 {message:string}
+
+ACCEPT FRIEND
+PATCH /friend/:requesterId
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+RESPONSE
+200 {message:string}
+400 {message:string}
+401 {message:string}
+500 {message:string}
+
