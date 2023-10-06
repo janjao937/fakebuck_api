@@ -64,7 +64,7 @@ const getTargetUserFriends = async(targetUserId)=>{
     });
     console.log(relationship);
     const friends = relationship.map((e)=>{
-        return e.requesterId === targetUserId?e.receiver:e.requester;
+        return e.requester.id === targetUserId?e.receiver:e.requester;
     });
 
     return friends;

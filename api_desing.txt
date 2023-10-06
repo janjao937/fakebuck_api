@@ -71,3 +71,20 @@ RESPONSE
 401 {message:string}
 500 {message:string}
 
+CREATE POST
+POST /post
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+BODY message?, image?
+RESPONSE
+201 { message: String }
+400 { message: String }
+401 { message: String }
+500 { message: String }
+
+GET ALL POST INCLUDE POST FRIENDS
+GET /post/friend
+RESPONSE
+200 {posts:[{id,message,img,string,user:{id,firstName,lastName,img,...}}]}
+400 {message:string}
+401 {message:string}
+500 {message:string}

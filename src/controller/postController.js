@@ -2,6 +2,7 @@ const createError = require("../utils/create-error");
 const {upload} = require("../utils/cloudinaryService");
 const prisma = require("../model/prisma");
 const fs = require("fs/promises");
+const {STATUS_ACCEPT} = require("../config/constants");
 
 exports.createPost = async(req,res,next)=>{
     try{
@@ -30,5 +31,49 @@ exports.createPost = async(req,res,next)=>{
         if(req.file){
             fs.unlink(req.file.path);
         }
+    }
+}
+
+const getFriendId = async(targetUserId)=>{
+    const relationship = await prisma.friend.findMany({
+        where:{
+            OR:[
+                {receiverId:targetUserId},
+                {requesterId:targetUserId},
+            ],
+            status:STATUS_ACCEPT
+        }
+    });
+    const friend = relationship.map((e)=>e.receiverId===targetUserId?e.requesterId:e.receiverId);
+    return friend;
+}
+
+exports.getAllPostInCludeFriendFriend = async(req,res,next)=>{
+    try{
+        const friendIds = await getFriendId(req.user.id);
+        const posts = await prisma.post.findMany({
+            where:{
+                userId:{
+                    in:[...friendIds,req.user.id]
+                }
+            },
+            orderBy:{
+                createAt:"desc"
+            },
+            include:{
+                user:{
+                    select:{
+                        id:true,
+                        firstName:true,
+                        lastName:true,
+                        profileImage:true
+                    }
+                }
+            }
+        });
+        res.status(200).json({posts});
+    }
+    catch(err){
+        next(err);
     }
 }

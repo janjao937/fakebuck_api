@@ -7,4 +7,11 @@ const router = express.Router();
 
 router.post("/",authenticateMiddleWare,uploadMiddleware.single("image"),postController.createPost);
 
+router.get("/friend",authenticateMiddleWare,postController.getAllPostInCludeFriendFriend);
+
+
+
+
+
+
 module.exports = router;

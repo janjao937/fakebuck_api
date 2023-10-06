@@ -61,6 +61,7 @@ exports.login = async(req,res,next)=>{
     }
 }
 
+//send getUser In req For other middleware 
 exports.getMe = (req,res,next)=>{
     
     res.status(200).json({user:req.user});
