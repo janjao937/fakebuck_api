@@ -13,9 +13,10 @@ router.use(upload.fields(
     [{name:"profileImage",maxCount:1},{name:"coverImage",maxCount:1}]
 ));
 
-//middleware
-router.patch("/",userController.updateProfile);
 
 router.get("/:userId",authenticate,userController.getUserById);
+
+//middleware
+router.patch("/",userController.updateProfile);
 
 module.exports= router;
