@@ -48,29 +48,36 @@ const getFriendId = async(targetUserId)=>{
     return friend;
 }
 
-exports.getAllPostInCludeFriendFriend = async(req,res,next)=>{
+exports.getAllPostInCludeFriend = async(req,res,next)=>{
     try{
         const friendIds = await getFriendId(req.user.id);
         const posts = await prisma.post.findMany({
-            where:{
-                userId:{
-                    in:[...friendIds,req.user.id]
-                }
+            where: {
+              userId: {
+                in: [...friendIds, req.user.id]
+              }
             },
-            orderBy:{
-                createAt:"desc"
+            orderBy: {
+              createdAt: 'desc'
             },
-            include:{
-                user:{
-                    select:{
-                        id:true,
-                        firstName:true,
-                        lastName:true,
-                        profileImage:true
-                    }
+            include: 
+            {
+              user: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
+                  profileImage: true
                 }
+              },
+              likes:{
+                select: {
+                  userId: true
+                }
+              }
             }
-        });
+
+          });
         res.status(200).json({posts});
     }
     catch(err){
